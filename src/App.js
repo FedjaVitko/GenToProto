@@ -68,7 +68,8 @@ class App extends Component {
     
     web3.eth.getAccounts((err, accounts) => {
       if(this.state.account !== accounts[0]){
-        this.msg.info('Account switched to ');
+        if(this.state.account !== null)
+          this.msg.info('Account switched');
         console.log("Switched");
         this.setState({
           account: accounts[0]
