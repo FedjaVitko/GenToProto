@@ -7,6 +7,7 @@ import { Container } from 'semantic-ui-react';
 import Home from 'pages/Home';
 import Ico from 'pages/Ico';
 import IcoTest from 'pages/IcoTest';
+import AlertContainer from 'react-alert'
 
 import web3 from 'myWeb3';
 
@@ -66,22 +67,38 @@ class App extends Component {
     console.log('update');
     
     web3.eth.getAccounts((err, accounts) => {
-      this.setState({
-        account: accounts[0]
-      })
+      if(this.state.account !== accounts[0]){
+        this.msg.info('Account switched to ');
+        console.log("Switched");
+        this.setState({
+          account: accounts[0]
+        })
+      }
+
+
+
     });
   }
 
   render() {
 
+    setInterval(this.updateAccount, 1000);
     this.updateAccount();
     
     return (
-        <Switch>
-          <Route path="/ico/:address" render = {(props) => (<Ico {...props} account={ this.state.account } network={ this.state.network } />)} />
-          <Route path="/test/:address" render = {(props) => (<IcoTest {...props} account={ this.state.account } network={ this.state.network } />)} />          
-          <Route path="/home" render={(props) => (<Home {...props} account={ this.state.account } network={ this.state.network } />)} />
-        </Switch>
+
+        <div>
+          <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
+          <Switch>
+            <Route path="/ico/:address"
+                   render={(props) => (<Ico {...props} account={ this.state.account } network={ this.state.network } />)}/>
+            <Route path="/test/:address"
+                   render={(props) => (<IcoTest {...props} account={ this.state.account } network={ this.state.network } />)}/>
+            <Route path="/home"
+                   render={(props) => (<Home {...props} account={ this.state.account } network={ this.state.network } />)}/>
+          </Switch>
+        </div>
+
     );
   }
 }
