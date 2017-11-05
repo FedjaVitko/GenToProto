@@ -52,8 +52,6 @@ class Ico extends Component {
         if(nextProps.account !== this.props.account) {
             console.log('Account has changed! Switched to account ' + nextProps.account);
             this.state.accountChanged = true;
-        }
-        if (this.state.tokenCount == null || this.state.accountChanged) {
             this.setMyTokenCount();
         }
     }
