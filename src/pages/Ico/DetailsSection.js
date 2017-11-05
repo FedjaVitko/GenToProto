@@ -14,43 +14,49 @@ class DetailsSection extends Component {
 
         this.state = {
             timeCountDown: '',
-            currentPercentage: null
+            currentPercentage: null,
+            supplyObj: {}
         }
     }
 
-//     setAuctionTimer = () => {
-//     const { details, status } = this.props;
-//     let timeCountDown;
-//     console.log(details);
+    setAuctionTimer = () => {
+    const { details, status } = this.props;
+    let timeCountDown;
+    console.log(details);
 
-//     if(status === "pending") {
-//         timeCountDown = "Auction will start at " + moment.unix(details._saleStart).format('LLL');
-//     } else if (status === "running") {
-//         const endTime = moment.unix(details._saleEnd);
-//         let duration = moment.duration(endTime.diff(moment()));
-//         const interval = 1000;
+    if(status === "pending") {
+        timeCountDown = "Auction will start at " + moment.unix(details._saleStart).format('LLL');
+    } else if (status === "running") {
+        const endTime = moment.unix(details._saleEnd);
+        let duration = moment.duration(endTime.diff(moment()));
+        const interval = 1000;
 
-//         timeCountDown = duration.days() + " d " + duration.hours() + " h " + duration.minutes() + " m " + duration.seconds() + " s left";
-//         console.log("This should be show only once!");
-//         auctionInterval = setInterval(() => {
-//             console.log("This should be shown every second!");
-//             if(endTime.diff(moment()) < 0) {
-//                 console.log("This should never be shown!");
-//                 this.setAuctionTimer();
-//             }
-//             duration = moment.duration(duration - interval);
-//             timeCountDown = duration.days() + " d " + duration.hours() + " h " + duration.minutes() + " m " + duration.seconds() + " s left";
-//             let currentPercentage = (endTime.diff(moment()) / endTime.diff(moment.unix(details._saleStart)));
-//             this.setState({
-//                 timeCountDown,
-//                 currentPercentage
-//             })
-//         }, interval)
-//     }
-// }
+        timeCountDown = duration.days() + " d " + duration.hours() + " h " + duration.minutes() + " m " + duration.seconds() + " s left";
+
+        auctionInterval = setInterval(() => {
+            if(endTime.diff(moment()) < 0) {
+                this.setAuctionTimer();
+            }
+            duration = moment.duration(duration - interval);
+            timeCountDown = duration.days() + " d " + duration.hours() + " h " + duration.minutes() + " m " + duration.seconds() + " s left";
+            let currentPercentage = ((endTime.diff(moment()) / endTime.diff(moment.unix(details._saleStart))) * 100).toFixed(2);
+            console.log(currentPercentage);
+            this.setState({
+                timeCountDown,
+                currentPercentage
+            })
+        }, interval)
+    }
+}
 
     componentWillMount() {
-        // this.setAuctionTimer();
+        this.setAuctionTimer();
+        this.props.setSupplyInterval((obj) => {
+            this.setState({
+                supplyObj: obj
+            })
+        });
+        
     }
 
     render() {
@@ -101,7 +107,7 @@ class DetailsSection extends Component {
                         Number of Tokens
                     </Header>
                     <Segment attached padded raised textAlign='left' color='olive'>
-                        <Progress percent='100' indicating progress label='1000 of 1000 left for sale'/>
+                        <Progress percent={this.state.supplyObj.supplyPct} indicating progress label={this.state.supplyObj.supplyString} />
                     </Segment>
                 </Grid.Column>
                 <Grid.Column width={8}>
@@ -109,7 +115,7 @@ class DetailsSection extends Component {
                         Period of Auction
                     </Header>
                     <Segment attached padded raised textAlign='right' color='olive'>
-                        <Progress percent='65' indicating progress label='5d 4h 3m 43s left' />
+                        <Progress percent={this.state.currentPercentage} indicating progress label={this.state.timeCountDown} />
                     </Segment>
                 </Grid.Column>
             </Grid.Row>

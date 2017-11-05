@@ -174,6 +174,26 @@ class Ico extends Component {
         })
     }
 
+    setSupplyInterval = (cb) => {
+        const data = this.state.auctionDetails;
+
+        this.checkSupply(data._owner, (err, supply) => {
+            if(err) {
+                console.error(err);
+            } else {
+                supply = supply.toNumber();
+                const supplyPct = (supply & data._totalSupply) * 100;
+                const supplyString = `${supply} of ${data._totalSupply} left for sale`;
+                console.log(supplyString);
+                console.log('Please see this!');
+                cb({
+                    supplyPct,
+                    supplyString
+                });
+            }
+        }) 
+    }
+
     render() {
         return(
             <Container style={{ width: '800px' }}>
@@ -185,6 +205,7 @@ class Ico extends Component {
                         timeCountDown={this.state.timeCountDown}
                         currentPercentage={this.state.currentPercentage}
                         status={this.state.status} 
+                        setSupplyInterval={this.setSupplyInterval}
                     />
                 }
                 <Chart />
