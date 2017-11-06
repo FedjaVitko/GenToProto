@@ -6,36 +6,11 @@ import { Container } from 'semantic-ui-react';
 
 import Home from 'pages/Home';
 import Ico from 'pages/Ico';
-import IcoTest from 'pages/IcoTest';
-import AlertContainer from 'react-alert'
 
+import AlertContainer from 'react-alert'
 import web3 from 'myWeb3';
 
 import backgroundImg from './assets/img/Ethereum-homestead-background-21.jpg';
-
-// const web3Init = () => {
-//   if (typeof window.web3 !== 'undefined') {
-//     // Use Mist/MetaMask's provider
-//     window.web3 = new Web3(window.web3.currentProvider);
-//   } else {
-//     console.log('No Web 3? You should consider trying MetaMask and Chrome!');
-//     // fallback - use your fallback strategy (local node / hosted node + in-dapp id mgmt / fail)
-//     window.web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:8545'));
-//   }
-// }
-
-// const startApp = () => {
-//   updateAccount();
-// }
-
-// const updateAccount = () => {
-//   console.log(window.web3);
-//   console.log(window.web3.eth.getAccounts(console.log));
-//   const newAccount = window.web3.eth.getAccounts().then(account => console.log(account));
-//   console.log(newAccount);
-// }
-
-let account;
 
 class App extends Component {
 
@@ -49,10 +24,8 @@ class App extends Component {
   }
 
   componentWillMount() {
-    // web3Init();
-    // startApp();
     this.updateNetwork();
-    this.updateAccount();
+    setInterval(this.updateAccount, 1000);
   }
 
   updateNetwork = () => {
@@ -82,19 +55,14 @@ class App extends Component {
   }
 
   render() {
-
-    setInterval(this.updateAccount, 1000);
-    this.updateAccount();
     
     return (
-
+      
         <div>
           <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
           <Switch>
             <Route path="/ico/:address"
                    render={(props) => (<Ico {...props} account={ this.state.account } network={ this.state.network } />)}/>
-            <Route path="/test/:address"
-                   render={(props) => (<IcoTest {...props} account={ this.state.account } network={ this.state.network } />)}/>
             <Route path="/home"
                    render={(props) => (<Home {...props} account={ this.state.account } network={ this.state.network } />)}/>
           </Switch>

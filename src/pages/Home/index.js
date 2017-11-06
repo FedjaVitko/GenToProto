@@ -7,6 +7,7 @@ import AboutSection from 'components/AboutSection';
 import Footer from 'components/Footer';
 import Menu from 'components/Menu';
 import Routes from './Routes';
+import Header from './Header';
 
 import { createGentoFactoryInstance, createAuctionTokenInstance } from 'contractInstances';
 import web3 from 'myWeb3';
@@ -20,7 +21,7 @@ class Home extends Component {
     super();
     
     this.state = {
-      activeItem: "generate ICO",
+      activeItem: "list ICO",
       items: [],
     }
   }
@@ -90,11 +91,7 @@ class Home extends Component {
         <Container style={{ width: '800px' }}>
           <AboutSection />
           <Menu activeItem={activeItem} handleItemClick={this.handleItemClick} />
-          <div className="flexCenter" style={{ flexDirection: 'column', textAlign: 'center' }}>
-            <h1>LIST OF YOUR TOKEN SALES (ICO)</h1>
-            <h2 style={{ fontWeight: 100 }}>Your current address: </h2>
-            <h3>{this.props.account}</h3>
-          </div>
+          <Header account={this.props.account} />
           <Routes items={this.state.items} />
           <Footer />
         </Container>

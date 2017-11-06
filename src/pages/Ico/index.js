@@ -199,14 +199,14 @@ class Ico extends Component {
             <Container style={{ width: '800px' }}>
                 <HeaderSection />
                 {this.state.auctionDetailsParsed && this.state.priceDevelopmentString && 
-                    <DetailsSection
-                        details={this.state.auctionDetailsParsed}
-                        priceDevelopmentString={this.state.priceDevelopmentString}
-                        timeCountDown={this.state.timeCountDown}
-                        currentPercentage={this.state.currentPercentage}
-                        status={this.state.status} 
-                        setSupplyInterval={this.setSupplyInterval}
-                    />
+                <DetailsSection
+                    details={this.state.auctionDetailsParsed}
+                    priceDevelopmentString={this.state.priceDevelopmentString}
+                    timeCountDown={this.state.timeCountDown}
+                    currentPercentage={this.state.currentPercentage}
+                    status={this.state.status} 
+                    setSupplyInterval={this.setSupplyInterval}
+                />
                 }
                 <Chart />
                 {this.state.tokenCountMsg && <TokensSection tokenCountMsg={this.state.tokenCountMsg} />}
