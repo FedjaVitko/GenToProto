@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Header from './Header';
+import HeaderSection from './HeaderSection';
 import ICOList from './ICOList';
 
 import { createGentoFactoryInstance, createAuctionTokenInstance } from 'contractInstances';
@@ -86,7 +86,7 @@ class Home extends Component {
 
     return (
       <div>
-          <Header account={this.props.account} />
+          <HeaderSection account={this.props.account} />
           <ICOList items={items} />
       </div>
     );

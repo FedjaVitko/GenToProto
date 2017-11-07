@@ -4,6 +4,8 @@ import { Divider } from 'semantic-ui-react';
 
 import StepZilla from 'react-stepzilla';
 
+import Header from 'components/Header';
+
 import Name from './Name';
 import Amount from './Amount';
 import Auction from './Auction';
@@ -21,8 +23,7 @@ class MultiStepForm extends Component {
     render() {
         return(
             <div className='step-progress' style={{ textAlign: 'center', marginTop: '1em' }}>
-                <h1>GENERATE YOUR OWN ICO</h1>
-                <Divider />
+                <Header text="GENERATE YOUR OWN ICO" />
                 <StepZilla steps={steps} />
             </div>
         )   
