@@ -16,7 +16,7 @@ class Home extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.listIcos();
   }
   
@@ -63,9 +63,12 @@ class Home extends Component {
     const owner = this.props.account;
     const instance = createGentoFactoryInstance();
 
-    instance.getICOsFromOwner(owner, (error, result) => {
-      for(let x = 0; x < result.length; x++) {
-        this.addIcoEntry(result[x]);
+    instance.getICOsFromOwner(owner, (err, res) => {
+      if(err) {
+        console.error(err);
+      }
+      for(let x = 0; x < res.length; x++) {
+        this.addIcoEntry(res[x]);
       }
     })
   }

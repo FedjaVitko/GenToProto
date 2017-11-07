@@ -19,10 +19,10 @@ class Ico extends Component {
             buyPriceStart: null,
             buyPriceEnd: null,
             auctionDetails: null,
+            auctionDetailsParsed: null,
             tokenCount: 0,
             tokenCountMsg: null,
             accountChanged: false,
-            auctionDetailsParsed: null,
             priceDevelopmentString: null,
             currentPercentage: null,
             timeCountDown: null
@@ -44,8 +44,6 @@ class Ico extends Component {
 
     componentDidUpdate(nextProps) {
         if(nextProps.account !== this.props.account) {
-            console.log('Account has changed! Switched to account ' + nextProps.account);
-            this.state.accountChanged = true;
             this.setMyTokenCount();
         }
     }
@@ -162,8 +160,6 @@ class Ico extends Component {
                 this.initAuctionDetails(data);
 
                 this.setPriceDevelopmentString();
-                // this.setAuctionTimer();
-                // this.setSupplyInterval();
             }
         })
     }
@@ -171,21 +167,21 @@ class Ico extends Component {
     setSupplyInterval = (cb) => {
         const data = this.state.auctionDetails;
 
-        this.checkSupply(data._owner, (err, supply) => {
-            if(err) {
-                console.error(err);
-            } else {
-                supply = supply.toNumber();
-                const supplyPct = (supply & data._totalSupply) * 100;
-                const supplyString = `${supply} of ${data._totalSupply} left for sale`;
-                console.log(supplyString);
-                console.log('Please see this!');
-                cb({
-                    supplyPct,
-                    supplyString
-                });
-            }
-        }) 
+        if (data) {
+            this.checkSupply(data._owner, (err, supply) => {
+                if(err) {
+                    console.error(err);
+                } else {
+                    supply = supply.toNumber();
+                    const supplyPct = (supply & data._totalSupply) * 100;
+                    const supplyString = `${supply} of ${data._totalSupply} left for sale`;
+                    cb({
+                        supplyPct,
+                        supplyString
+                    });
+                }
+            })
+        }    
     }
 
     render() {

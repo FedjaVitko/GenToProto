@@ -15,7 +15,7 @@ class DetailsSection extends Component {
         this.state = {
             timeCountDown: '',
             currentPercentage: null,
-            supplyObj: {}
+            supplyObj: { }
         }
     }
 

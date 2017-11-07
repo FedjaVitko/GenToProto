@@ -8,6 +8,7 @@ const ICOList = ({ items }) => {
         <Card
             key={item.address}
             style={{ fontSize: '18px' }}
+            color='olive'
             fluid
             raised
             href={`/ico/${item.address}`}
