@@ -1,19 +1,12 @@
 import React, { Component } from 'react';
 
-import { Container } from 'semantic-ui-react';
-
-import IntroHeader from 'components/IntroHeader';
-import AboutSection from 'components/AboutSection';
-import Footer from 'components/Footer';
-import Menu from 'components/Menu';
-import Routes from './Routes';
 import Header from './Header';
+import ICOList from './ICOList';
 
 import { createGentoFactoryInstance, createAuctionTokenInstance } from 'contractInstances';
-import web3 from 'myWeb3';
 
+import web3 from 'myWeb3';
 import moment from 'moment';
-// import backgroundImg from './assets/img/Ethereum-homestead-background-21.jpg';
 
 class Home extends Component {
   
@@ -27,9 +20,7 @@ class Home extends Component {
   }
 
   componentWillMount() {
-    setInterval(() => {
-      console.log('Every SECOND!')
-    }, 1000);
+    this.listIcos();
   }
   
   componentDidUpdate(nextProps) {
@@ -72,6 +63,9 @@ class Home extends Component {
     const owner = this.props.account;
     const instance = createGentoFactoryInstance();
 
+    console.log(owner);
+    console.log('YUHUU!');
+
     instance.getICOsFromOwner(owner, (error, result) => {
       for(let x = 0; x < result.length; x++) {
         this.addIcoEntry(result[x]);
@@ -79,22 +73,13 @@ class Home extends Component {
     })
   }
 
-
-
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
-
   render() {
-    const { activeItem } = this.state;
+    const { activeItem, items } = this.state;
+
     return (
       <div>
-        <IntroHeader />
-        <Container style={{ width: '800px' }}>
-          <AboutSection />
-          <Menu activeItem={activeItem} handleItemClick={this.handleItemClick} />
           <Header account={this.props.account} />
-          <Routes items={this.state.items} />
-          <Footer />
-        </Container>
+          <ICOList items={items} />
       </div>
     );
   }

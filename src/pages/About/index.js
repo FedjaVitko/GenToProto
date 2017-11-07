@@ -1,27 +1,30 @@
 import React from 'react';
 
-const AboutSection = () => (
+import { Divider } from 'semantic-ui-react';
+
+const About = () => (
     <div style={{ textAlign: 'center', marginTop: '1em' }}>
-        <h1>ABOUT GENTO</h1>
-        <p style={{ fontSize: '20px' }}>
+    <h1>ABOUT GENTO</h1>
+    <Divider />
+    <p style={{ fontSize: '20px' }}>
             GenTo is a platform that facilitates Initial Coin Offerings. 
             It creates user-defined
             Smart Contracts and automatically deploys them to the blockchain - without the need
             to write a single line of code!
-            <br></br>
-            <br></br>
+        <br></br>
+        <br></br>
             Hiding technical details from the user, we make Initial Coin Offerings accessible for
             a broader, non-technical audience. GenTo provides an intuitive web-based UI that
             guides the user through the contract creation process step by step.
-            <br></br>
-            <br></br>
+        <br></br>
+        <br></br>
             GenTo has been developed by a student group at the chair for Information Systems
             Engineering at Technical University of Berlin in collaboration with venture
             capitalist and startup advisor Globumbus.
-            <br></br>
-            <br></br>
-        </p>
+        <br></br>
+        <br></br>
+    </p>
     </div>
 )
 
-export default AboutSection;
+export default About;

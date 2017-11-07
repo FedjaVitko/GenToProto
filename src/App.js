@@ -4,13 +4,15 @@ import { Switch, Route } from 'react-router-dom';
 
 import { Container } from 'semantic-ui-react';
 
-import Home from 'pages/Home';
+import About from 'pages/About';
+import List from 'pages/List';
+import GenerateICO from 'pages/GenerateICO';
 import Ico from 'pages/Ico';
+
+import TopNav from 'components/TopNav';
 
 import AlertContainer from 'react-alert'
 import web3 from 'myWeb3';
-
-import backgroundImg from './assets/img/Ethereum-homestead-background-21.jpg';
 
 class App extends Component {
 
@@ -57,15 +59,21 @@ class App extends Component {
   render() {
     
     return (
-      
         <div>
+          <TopNav />
           <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
-          <Switch>
-            <Route path="/ico/:address"
-                   render={(props) => (<Ico {...props} account={ this.state.account } network={ this.state.network } />)}/>
-            <Route path="/home"
-                   render={(props) => (<Home {...props} account={ this.state.account } network={ this.state.network } />)}/>
-          </Switch>
+          <Container style={{ width: '800px' }}>
+            <Switch>
+              <Route exact path="/"
+                    render={(props) => (<About {...props} account={ this.state.account } network={ this.state.network } />)}/>
+              <Route path="/ico/:address"
+                    render={(props) => (<Ico {...props} account={ this.state.account } network={ this.state.network } />)}/>
+              <Route path="/list"
+                    render={(props) => (<List {...props} account={ this.state.account } />)}/>
+              <Route path="/generate"
+                    render={(props) => (<GenerateICO {...props} account={ this.state.account } />)}/>
+            </Switch>
+          </Container>
         </div>
 
     );
