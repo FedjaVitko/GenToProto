@@ -4,9 +4,7 @@ import { Menu, Segment } from 'semantic-ui-react';
 
 class TopNav extends Component {
 
-    state = {
-
-    }
+    state = {}
 
     handleItemClick = (e, { name }) => this.setState({ activeItem: name });
 
@@ -16,7 +14,7 @@ class TopNav extends Component {
         return (
             <Segment color='teal' size='small' inverted>
                 <Menu size='large' color='teal' inverted secondary borderless>
-                    <Menu.Item header>GENTO</Menu.Item>
+                    <Menu.Item header style={{ fontSize: '18px' }}>GENTO</Menu.Item>
                     <Menu.Menu position='right'>
                         <Menu.Item name='about' as={ Link } to='/' active={activeItem === 'about'} onClick={this.handleItemClick} />
                         <Menu.Item name='generate' as={ Link } to='/generate' active={activeItem === 'generate'} onClick={this.handleItemClick} />

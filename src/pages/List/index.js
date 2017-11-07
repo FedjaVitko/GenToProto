@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 
-import HeaderSection from './HeaderSection';
-import ICOList from './ICOList';
-
 import { createGentoFactoryInstance, createAuctionTokenInstance } from 'contractInstances';
 
-import web3 from 'myWeb3';
+import View from './View';
+
 import moment from 'moment';
 
 class Home extends Component {
@@ -14,16 +12,11 @@ class Home extends Component {
     super();
     
     this.state = {
-      activeItem: "list ICO",
       items: [],
     }
   }
 
   componentWillMount() {
-    this.listIcos();
-  }
-
-  componentDidMount() {
     this.listIcos();
   }
   
@@ -45,7 +38,6 @@ class Home extends Component {
       } else {
         const creationDate = result[4].toNumber();
         const name = result[1];
-
         const date = moment.unix(creationDate).format('LL');
         
         const item = {
@@ -71,9 +63,6 @@ class Home extends Component {
     const owner = this.props.account;
     const instance = createGentoFactoryInstance();
 
-    console.log(owner);
-    console.log('YUHUU!');
-
     instance.getICOsFromOwner(owner, (error, result) => {
       for(let x = 0; x < result.length; x++) {
         this.addIcoEntry(result[x]);
@@ -82,13 +71,11 @@ class Home extends Component {
   }
 
   render() {
-    const { activeItem, items } = this.state;
-
     return (
-      <div>
-          <HeaderSection account={this.props.account} />
-          <ICOList items={items} />
-      </div>
+      <View
+        {...this.props}
+        {...this.state}
+      />
     );
   }
 }

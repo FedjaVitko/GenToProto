@@ -1,16 +1,10 @@
 import React, { Component } from 'react';
 
-import { Container } from 'semantic-ui-react';
-
-import HeaderSection from './HeaderSection';
-import DetailsSection from './DetailsSection';
-import Chart from './Chart';
-import TokensSection from './TokensSection';
-
-
 import { createAuctionTokenInstance } from 'contractInstances';
-import web3 from 'myWeb3';
 
+import View from './View';
+
+import web3 from 'myWeb3';
 import moment from 'moment';
 
 class Ico extends Component {
@@ -196,21 +190,11 @@ class Ico extends Component {
 
     render() {
         return(
-            <Container style={{ width: '800px' }}>
-                <HeaderSection />
-                {this.state.auctionDetailsParsed && this.state.priceDevelopmentString && 
-                <DetailsSection
-                    details={this.state.auctionDetailsParsed}
-                    priceDevelopmentString={this.state.priceDevelopmentString}
-                    timeCountDown={this.state.timeCountDown}
-                    currentPercentage={this.state.currentPercentage}
-                    status={this.state.status} 
-                    setSupplyInterval={this.setSupplyInterval}
-                />
-                }
-                <Chart />
-                {this.state.tokenCountMsg && <TokensSection tokenCountMsg={this.state.tokenCountMsg} />}
-            </Container>
+            <View
+                {...this.props}
+                {...this.state}
+                setSupplyInterval={this.setSupplyInterval}
+            />
         )
     }
 }
