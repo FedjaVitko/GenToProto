@@ -22,6 +22,10 @@ class Home extends Component {
   componentWillMount() {
     this.listIcos();
   }
+
+  componentDidMount() {
+    this.listIcos();
+  }
   
   componentDidUpdate(nextProps) {
     if (nextProps.account !== this.props.account) {
@@ -53,7 +57,11 @@ class Home extends Component {
         let hasAddress = this.state.items.some( item => item['address'] === address )
 
         if(!hasAddress) {
-          this.state.items.push(item);
+          const newItems = this.state.items;
+          newItems.push(item);
+          this.setState({
+            items: newItems
+          })
         }
       }
     })
